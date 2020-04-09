@@ -5,15 +5,15 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-dev \
     libxslt-dev \
     libz-dev \
-    python3-dev \
-    python3-pip \
+    python3 \
+		python3-pip \
 && rm -rf /var/lib/apt/lists/*
 
+RUN virtualenv venv
+RUN chmod u+x venv/bin/activate
+RUN venv/bin/activate
 
-RUN python --version
-RUN pip3 --version
-
-ADD requirements/dev.txt /tmp/dev.txt
+ADD xblock-sdk/requirements/dev.txt /tmp/dev.txt
 RUN pip3 install -r /tmp/dev.txt \
 && rm /tmp/dev.txt
 
@@ -22,15 +22,15 @@ RUN /bin/bash /tmp/nodejs-setup
 RUN rm /tmp/nodejs-setup
 RUN apt-get -y install nodejs
 
-RUN mkdir -p /usr/local/src/xblock-sdk
-WORKDIR /usr/local/src/xblock-sdk
+RUN mkdir -p /usr/local/src/
+WORKDIR /usr/local/src/
 ADD . .
 
-RUN virtualenv .env
-RUN chmod u+x .env/bin/activate
-RUN .env/bin/activate
+RUN bash setup-custom-xblocks.sh
 
+WORKDIR /usr/local/src/xblock-sdk
 RUN make install
+
 EXPOSE 8000
 ENTRYPOINT ["python3", "manage.py"]
 CMD ["runserver", "0.0.0.0:8000"]

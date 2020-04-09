@@ -31,7 +31,7 @@ just delete the directory it created.
 
 
 def main():
-    print EXPLANATION
+    print (EXPLANATION)
 
     # Get the values.
     try:
@@ -39,15 +39,15 @@ def main():
             short_name = raw_input("Short name: ")
             if re.match(r"^[a-z][a-z0-9_]+$", short_name):
                 break
-            print "The short name must be a valid Python identifier, all lower-case."
+            print ("The short name must be a valid Python identifier, all lower-case.")
 
         while True:
             class_name = raw_input("Class name: ")
             if re.match(r"[A-Z][a-zA-Z0-9]+XBlock$", class_name):
                 break
-            print "The class name must be a valid Python class name, ending with XBlock."
+            print ("The class name must be a valid Python class name, ending with XBlock.")
     except KeyboardInterrupt:
-        print "\n** Cancelled **"
+        print ("\n** Cancelled **")
         return
 
     # Find the prototype.

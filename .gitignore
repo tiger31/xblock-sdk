@@ -11,6 +11,11 @@ local_settings.py
 htmlcov
 geckodriver.log
 
+### Custom components-dir
+custom-xblocks/*
+!custom-xblocks/.gitkeep
+
+
 *.DS_Store
 workbench/static/djpyfs/
 workbench.test.*
